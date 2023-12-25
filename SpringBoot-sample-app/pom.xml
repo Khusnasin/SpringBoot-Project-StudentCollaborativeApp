@@ -49,6 +49,13 @@
         <version>1.0.2</version> <!-- Use a version compatible with your project -->
     </dependency>
     
+    <!-- Add this dependency to your pom.xml file -->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.23</version> <!-- Use the version appropriate for your MySQL server -->
+	</dependency>
+
 	</dependencies>
 
 	<build>
