@@ -1,15 +1,15 @@
 package com.SpringBoot.app.model;
 
 public class Comment {
-	private Long id;
-    private Long postId;
+	private Integer id;
+    private Integer postId;
     private String content;
     
     public Comment() {
         // Default constructor
     }
 
-    public Comment(Long id, Long postId, String content) {
+    public Comment(Integer id, Integer postId, String content) {
         this.id = id;
         this.postId = postId;
         this.content = content;
@@ -17,11 +17,11 @@ public class Comment {
 
     // Getter methods
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public Long getPostId() {
+    public Integer getPostId() {
         return postId;
     }
 
@@ -31,11 +31,11 @@ public class Comment {
 
     // Setter methods
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setPostId(Long postId) {
+    public void setPostId(Integer postId) {
         this.postId = postId;
     }
 

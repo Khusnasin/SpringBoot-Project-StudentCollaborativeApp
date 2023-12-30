@@ -7,4 +7,5 @@ public interface UserService {
 	User registerUser(User user);
 	User findUserByNameAndPassword(String name, String password);
 	List<User> getAllUsers();
+	User getUserById(Long id);
 }

@@ -5,6 +5,7 @@ import com.SpringBoot.app.service.UserService;
 import com.SpringBoot.app.standardControllers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,5 +59,21 @@ public class UserController {
             return ResponseEntity.status(400).build();
         }
     }
+    
+    @GetMapping("/getuserbyid/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        try {
+            User user = userService.getUserById(id);
+
+            if (user != null) {
+                return ResponseEntity.ok(user);
+            } else {
+                return ResponseEntity.status(404).body(new ErrorResponse("User not found"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(new ErrorResponse(e.getMessage()));
+        }
+    }
+    
     
 }

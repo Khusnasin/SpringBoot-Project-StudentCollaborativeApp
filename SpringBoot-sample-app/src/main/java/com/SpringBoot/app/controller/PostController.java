@@ -26,7 +26,7 @@ public class PostController {
 
 	// Endpoint to get all posts related to a particular user
     @GetMapping("/user/{userId}")
-    public List<Post> getPostsByUser(@PathVariable Long userId) {
+    public List<Post> getPostsByUser(@PathVariable Integer userId) {
         User user = users.stream()
                 .filter(u -> u.getId().equals(userId))
                 .findFirst()
@@ -43,7 +43,7 @@ public class PostController {
 	
     // Endpoint to get a specific post by ID
     @GetMapping("/{postId}")
-    public Post getPost(@PathVariable Long postId) {
+    public Post getPost(@PathVariable Integer postId) {
         
         return posts.stream()
                 .filter(post -> post.getId().equals(postId))
@@ -52,7 +52,7 @@ public class PostController {
     }
     
     @PostMapping("/{postId}/comments")
-    public Comment postCommentOrReply(@PathVariable Long postId, @RequestBody Comment newComment) {
+    public Comment postCommentOrReply(@PathVariable Integer postId, @RequestBody Comment newComment) {
         
         newComment.setId(generateCommentId()); 
         newComment.setPostId(postId);
@@ -61,14 +61,14 @@ public class PostController {
     }
     
     @PostMapping("/multi-user")
-    public Post postMultiUserPost(@RequestBody Post newPost, @RequestParam List<Long> userIds) {
+    public Post postMultiUserPost(@RequestBody Post newPost, @RequestParam List<Integer> userIds) {
         newPost.setId(generatePostId());
         
         // Add the post to the list of posts
         posts.add(newPost);
 
         // Link the post to each user
-        for (Long userId : userIds) {
+        for (Integer userId : userIds) {
             User user = users.stream()
                     .filter(u -> u.getId().equals(userId))
                     .findFirst()
@@ -82,8 +82,8 @@ public class PostController {
         return newPost;
     }
     
-    private Long generatePostId() {
-		return null;
+    private Integer generatePostId() {
+    	return posts.size() + 1;
 	}
 
 	// Endpoint to reply to a specific comment
@@ -95,9 +95,9 @@ public class PostController {
         return newReply;
     }
 */
-    private Long generateCommentId() {
+    private Integer generateCommentId() {
         
-        return System.currentTimeMillis();
+    	return comments.size() + 1;
     }
     
    
