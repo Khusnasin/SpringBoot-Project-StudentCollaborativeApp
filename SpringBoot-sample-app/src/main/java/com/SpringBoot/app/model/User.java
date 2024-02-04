@@ -20,7 +20,11 @@ public class User {
         this.password = builder.password;
     }
     
-    public static class Builder {
+    public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static class Builder {
         private String name;
         private Long id;
         private String password;
@@ -53,5 +57,15 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
 
 }

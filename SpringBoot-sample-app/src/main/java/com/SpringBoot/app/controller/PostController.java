@@ -1,19 +1,16 @@
 package com.SpringBoot.app.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.SpringBoot.app.model.Post;
 import com.SpringBoot.app.model.Comment;
 import com.SpringBoot.app.model.User;
-
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Collections;
-
 
 @RestController
 @RequestMapping("/api/posts")
@@ -24,6 +21,32 @@ public class PostController {
 
 	//private List<Reply> replies = new ArrayList<>();
 
+	@PostMapping
+	public ResponseEntity<Post> createPost(@RequestBody Post newPost, @RequestParam Integer userId) {
+	    // Validating if the user exists
+	    User user = users.stream()
+	            .filter(u -> u.getId().equals(userId))
+	            .findFirst()
+	            .orElse(null);
+
+	    if (user == null) {
+	        
+	        return ResponseEntity.notFound().build();
+	    }
+
+	    // Set the user for the new post
+	    newPost.setUser(user);
+
+	    // Generate a new post ID
+	    newPost.setId(generatePostId());
+
+	    // Add the post to the list of posts
+	    posts.add(newPost);
+
+	    return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
+	}
+
+	
 	// Endpoint to get all posts related to a particular user
     @GetMapping("/user/{userId}")
     public List<Post> getPostsByUser(@PathVariable Integer userId) {
